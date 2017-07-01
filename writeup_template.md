@@ -23,7 +23,55 @@ The goals / steps of this project are the following:
 [image6]: ./saved_figures/stretch.png "Stretch"
 [dropout]: ./saved_figures/dropout.jpeg "dropout"
 [image7]: ./saved_figures/lossAccuracy-65.png "lossAccuracy"
-[image8]: ./saved_figures/placeholder.png "Traffic Sign 5"
+[image8]: ./saved_figures/lossAccuracy.png "lossAccuracy"
+[image9]: ./saved_figures/placeholder.png "Traffic Sign 5"
+
+[testimg1]: ./new_images/1.ppm
+[testimg2]: ./new_images/2.ppm
+[testimg3]: ./new_images/3.ppm
+[testimg4]: ./new_images/4.ppm
+[testimg5]: ./new_images/5.ppm
+[testimg6]: ./new_images/6.ppm
+[testimg]: ./new_images/7.ppm
+[testimg8]: ./new_images/8.ppm
+[testimg9]: ./new_images/9.ppm
+[testimg10]: ./new_images/A.ppm
+[testimg11]: ./new_images/AAA.ppm
+[testimg12]: ./new_images/AAB.ppm
+[testimg13]: ./new_images/AAC.ppm
+[testimg14]: ./new_images/AAD.ppm
+[testimg15]: ./new_images/AAE.ppm
+[testimg16]: ./new_images/AAF.ppm
+
+[imgpred1]: ./saved_figures/test_image_pred_1.png
+[imgpred2]: ./saved_figures/test_image_pred_2.png
+[imgpred3]: ./saved_figures/test_image_pred_3.png
+[imgpred4]: ./saved_figures/test_image_pred_4.png
+[imgpred5]: ./saved_figures/test_image_pred_5.png
+[imgpred6]: ./saved_figures/test_image_pred_6.png
+[imgpred7]: ./saved_figures/test_image_pred_7.png
+[imgpred8]: ./saved_figures/test_image_pred_8.png
+[imgpred9]: ./saved_figures/test_image_pred_9.png
+[imgpred10]: ./saved_figures/test_image_pred_10.png
+[imgpred11]: ./saved_figures/test_image_pred_11.png
+[imgpred12]: ./saved_figures/test_image_pred_12.png
+[imgpred13]: ./saved_figures/test_image_pred_13.png
+[imgpred14]: ./saved_figures/test_image_pred_14.png
+[imgpred15]: ./saved_figures/test_image_pred_15.png
+[imgpred16]: ./saved_figures/test_image_pred_16.png
+
+
+[test2]: ./new_images/example_00002.png
+[test3]: ./new_images/example_00003.png
+[test4]: ./new_images/example_00004.png
+[test5]: ./new_images/example_00005.png
+[test6]: ./new_images/example_00006.png
+[test7]: ./new_images/example_00007.png
+[test8]: ./new_images/example_00008.png
+[test9]: ./new_images/example_00009.png
+[test10]: ./new_images/example_00010.png
+[test11]: ./new_images/example_00011.png
+
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -64,7 +112,7 @@ We can see that there is some great disparity among the different classes. The m
 
 ####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-From what I seen in papers, people tend to remove the color components and convert the image to greyscale. I believe that the color is helpful so I decided to keep the R, G and B channels.
+From what I seen in papers, people tend to remove the color components and convert the image to greyscale. I believe that the color is helpful so I decided to keep the R, G and B channels. I later tried to convert the images to greyscale before training the network but didn't obtain any significant improvement.
 
 #### ROI Cropping
 For each image of each dataset, a region of interest is provided. It gives a precise location to where the sign actually is. In order to maximize my chances that the model is going to learn features from the sign I crop the background to remove the noise as much as possible.
@@ -102,6 +150,11 @@ Here comes an example of my random stretching function and the comparison with a
 ![alt text][image6]
 
 
+With this set of augmenting functions defined. I could start augmenting the dataset for real.
+
+Here is when I started struggling. I spent a huge amount of time trying to figure out what I was doing wrong. The kernel kept crashing. Lesson learned. Do not develop in a Jupyter Notebook.
+
+
 ####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
 My final model consisted of the following layers:
@@ -109,14 +162,22 @@ My final model consisted of the following layers:
 | Layer         		|     Description	        					|
 |:---------------------:|:---------------------------------------------:|
 | Input         		| 32x32x3 RGB image   							|
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Convolution 5x5     	| 1x1 stride, VALID padding, outputs 28x28x6 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
+| Max pooling	      	| 2x2 stride,  outputs 14x14x6  				|
+| Convolution 5x5	    | 1x1 stride, VALID padding, outputs 10x10x16 	|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride,  outputs 5x5x6    				|
+| Flatten   	      	| outputs 400                     				|
+| Fully connected		| outputs 120  									|
+| RELU					|												|
+| Dropout				| probability = 0.5								|
+| Fully connected		| outputs 84  									|
+| RELU					|												|
+| Dropout				| probability = 0.5								|
+| Fully connected		| outputs 43  									|
+| Softmax				|         	    								|
+
 
 #### Dropout
 
@@ -166,23 +227,62 @@ If a well known architecture was chosen:
 
 At first, I started with the LeNet-5 architecture from the lesson. It is known to be one of the very first Convolutionnal Neural Network to lower the error rate significantly for the MNIST dataset. I thought it would be a good model to try.
 
-Here is how my loss and accuracy were evolving over 20 epochs with
+I was pretty happy with my early results using the LeNet-5 network architecture so I haven't jumped to another one but rather focus on fine tuning the parameters on this model.
+
+Here is where I kept my observations from the early tests. I use the acronym VA for Validation Accuracy, LR for Learning Rate, BS for Batch Size, DO for Dropout.
+With the LeNet-5 NN from the lecture, the validation accuracy barely reached over 85%. One of the first improvement I've made was to add a dropout unit to prevent from overfitting.
+
+    I reached 86.3% with 1 dropout unit and a dropout input argument of 0.7.
+    I reached 87.9% with 2 dropout unit and a dropout input argument of 0.7.
+
+The idea I had was to reduce the learning rate a little bit and increase the number of epochs.
+
+With 20 epochs, LR = 0.001:
+    1. Batch size of 64, VA = 90.6%
+    2. Batch size of 128, VA = 88.9%
+
+It would seem like reducing the batch size would improve the accuracy but a larger batch size requires a smaller learning rate.
+
+Then I added the normalization of the rgb components to be between 0.1 and 0.9 instead of 0, 255.
+
+With 20 epochs, BS = 128:
+    1. LR = 0.0005, VA = 90.1%
+    2. LR = 0.001,  VA = 90.4%
+
+No great conclusion could be drawn with this experiment.    
+
+Then I augmented the images by cropping them to only keep the region of interest. I obtained the following results with a batch size of 128 images, a LR = 0.0005 and 20 epochs.
+    1. D0 = 1,   VA = 92.5%      (No Dropout)
+    2. D0 = 0.7, VA = 95.3%      (Dropout x2 only after fully connected layers.)
+    3. D0 = 0.7, VA = 94.4%      (Dropout x4 after each ReLU.)
+
+I concluded that I should only keep the dropout cells after the activation of the fully connected layers. Furthermore, cropping the image is impacting the result of the neural network by a lot.
+
+I wanted to tune the dropout parameter. Here are 2 graphs displaying the evolution of the loss and accuracy for both the training set and the validation set at each epoch during training.
+
+For the same hyperparameters and the dropout set to **0.7**:
 
 ![alt text][image7]
 
-I was pretty happy with my early results using the LeNet-5 network architecture so I haven't jumped to another one but rather focus on fine tuning the parameters on this model.
+Then I changed it to be **0.5**:
 
+![alt text][image8]
 
+Then, I started to include my rotating augmenting function. Therefore, I increased the size of the training set.
+With now 39239 training images, BS = 128, LR = 0.0005, Epochs = 50, DO = 0.7, I obtained a validation accuracy of 99.9% and a training accuracy of 96.6%.
 
+The best test accuracy I could come up with is 70%.
 
+###Test of my model on New Images
 
-###Test a Model on New Images
+####1. Presentation of the images
 
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+Here are 16 images from the Belgium traffic sign dataset:
 
-Here are five German traffic signs that I found on the web:
+![alt text][testimg1]
+![alt text][testimg2]
 
-![alt text][image4] ![alt text][image5] ![alt text][image6]
+![alt text][image5] ![alt text][image6]
 ![alt text][image7] ![alt text][image8]
 
 The first image might be difficult to classify because ...
@@ -218,6 +318,3 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 
 
 For the second image ...
-
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
