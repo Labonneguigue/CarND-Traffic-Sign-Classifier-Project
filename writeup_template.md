@@ -1,4 +1,4 @@
-#Traffic Sign Recognition
+# Traffic Sign Recognition
 
 ---
 
@@ -77,7 +77,7 @@ Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/4
 
 ---
 
-##Code
+## Code
 
 Here is an explanation of how I approached this project. If you want to dive in the code, it's right [here !](https://github.com/Labonneguigue/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 You'll find that I used tf.summary. It has to do with TensofBoard, TensorFlow's visualization tool.

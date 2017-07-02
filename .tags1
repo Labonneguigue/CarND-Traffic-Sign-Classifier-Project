@@ -4,9 +4,9 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-Traffic Sign Recognition	/Users/guiwake/Documents/Programmation/MOOC/Udacity/CarND-Traffic-Sign-Classifier-Project/writeup_template.md	/^#Traffic Sign Recognition$/;"	function	line:1
+Traffic Sign Recognition	/Users/guiwake/Documents/Programmation/MOOC/Udacity/CarND-Traffic-Sign-Classifier-Project/writeup_template.md	/^# Traffic Sign Recognition$/;"	function	line:1
 Rubric Points	/Users/guiwake/Documents/Programmation/MOOC/Udacity/CarND-Traffic-Sign-Classifier-Project/writeup_template.md	/^## Rubric Points$/;"	function	line:74
-Code	/Users/guiwake/Documents/Programmation/MOOC/Udacity/CarND-Traffic-Sign-Classifier-Project/writeup_template.md	/^##Code$/;"	function	line:80
+Code	/Users/guiwake/Documents/Programmation/MOOC/Udacity/CarND-Traffic-Sign-Classifier-Project/writeup_template.md	/^## Code$/;"	function	line:80
 Data Set Summary & Exploration	/Users/guiwake/Documents/Programmation/MOOC/Udacity/CarND-Traffic-Sign-Classifier-Project/writeup_template.md	/^## Data Set Summary & Exploration$/;"	function	line:85
 1. Dataset presentation	/Users/guiwake/Documents/Programmation/MOOC/Udacity/CarND-Traffic-Sign-Classifier-Project/writeup_template.md	/^#### 1. Dataset presentation$/;"	function	line:87
 2. Visualization of the dataset.	/Users/guiwake/Documents/Programmation/MOOC/Udacity/CarND-Traffic-Sign-Classifier-Project/writeup_template.md	/^#### 2. Visualization of the dataset.$/;"	function	line:97
