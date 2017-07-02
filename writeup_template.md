@@ -1,4 +1,4 @@
-#**Traffic Sign Recognition**
+#Traffic Sign Recognition
 
 ---
 
@@ -32,17 +32,17 @@ The goals / steps of this project are the following:
 [testimg4]: ./new_images/4.ppm
 [testimg5]: ./new_images/5.ppm
 [testimg6]: ./new_images/6.ppm
-[testimg]: ./new_images/7.ppm
+[testimg7]: ./new_images/7.ppm
 [testimg8]: ./new_images/8.ppm
 [testimg9]: ./new_images/9.ppm
 [testimg10]: ./new_images/A.ppm
 [testimg11]: ./new_images/AAA.ppm
 [testimg12]: ./new_images/AAB.ppm
-[testimg13]: ./new_images/AAC.ppm
-[testimg14]: ./new_images/AAD.ppm
-[testimg15]: ./new_images/AAE.ppm
-[testimg16]: ./new_images/AAF.ppm
+[testimg13]: ./new_images/AAD.ppm
+[testimg14]: ./new_images/AAE.ppm
+[testimg15]: ./new_images/AAF.ppm
 
+[imgpred0]: ./saved_figures/test_image_pred_0.png
 [imgpred1]: ./saved_figures/test_image_pred_1.png
 [imgpred2]: ./saved_figures/test_image_pred_2.png
 [imgpred3]: ./saved_figures/test_image_pred_3.png
@@ -58,8 +58,6 @@ The goals / steps of this project are the following:
 [imgpred13]: ./saved_figures/test_image_pred_13.png
 [imgpred14]: ./saved_figures/test_image_pred_14.png
 [imgpred15]: ./saved_figures/test_image_pred_15.png
-[imgpred16]: ./saved_figures/test_image_pred_16.png
-
 
 [test2]: ./new_images/example_00002.png
 [test3]: ./new_images/example_00003.png
@@ -74,17 +72,19 @@ The goals / steps of this project are the following:
 
 
 ## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
+
+Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
 ---
 
-###Code
+##Code
 
 Here is an explanation of how I approached this project. If you want to dive in the code, it's right [here !](https://github.com/Labonneguigue/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+You'll find that I used tf.summary. It has to do with TensofBoard, TensorFlow's visualization tool.
 
-###Data Set Summary & Exploration
+## Data Set Summary & Exploration
 
-####1. Dataset presentation
+#### 1. Dataset presentation
 
 The data is provided in pickle files. It is already split in a training set, a validation set and a test set.
 
@@ -94,7 +94,7 @@ The data is provided in pickle files. It is already split in a training set, a v
 * Each image is 32 by 32 pixels, each having a R,G and B component. Their shape is therefore (32, 32, 3).
 * The dataset contains 43 different traffic signs. They are called classes.
 
-####2. Visualization of the dataset.
+#### 2. Visualization of the dataset.
 
 Here is an exploratory visualization of the data set. Each label (type of traffic sign) displays an example of its class underneath it.
 
@@ -108,9 +108,9 @@ It is a bar chart showing how the data is shared across the different classes an
 
 We can see that there is some great disparity among the different classes. The most represented one contains 2010 images whereas the smallest one contains only 180.
 
-###Design and Test a Model Architecture
+## Design and Test a Model Architecture
 
-####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
+### 1. Image preprocessing
 
 From what I seen in papers, people tend to remove the color components and convert the image to greyscale. I believe that the color is helpful so I decided to keep the R, G and B channels. I later tried to convert the images to greyscale before training the network but didn't obtain any significant improvement.
 
@@ -155,7 +155,7 @@ With this set of augmenting functions defined. I could start augmenting the data
 Here is when I started struggling. I spent a huge amount of time trying to figure out what I was doing wrong. The kernel kept crashing. Lesson learned. Do not develop in a Jupyter Notebook.
 
 
-####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+### 2. Model architecture.
 
 My final model consisted of the following layers:
 
@@ -192,8 +192,7 @@ Let's not forget to set the `dropout` probability (effectively being the probabi
 Image taken from the [dropout paper](http://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf).
 
 
-####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
-
+### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
 
 #### Adam Optimizer
@@ -203,12 +202,7 @@ Foremost is that it uses moving averages of the parameters. The concept behind t
 The provided learning rate is the maximum coefficient applied to the gradient during backpropagation. The Adam optimizer determines when to lower that learning rate for each parameter. This brings some computation overhead as this is performed for each training step (maintain the moving averages and variance, and calculate the scaled gradient).
 A simple tf.train.GradientDescentOptimizer could equally be used in your MLP, but would require more hyperparameter tuning before it would converge as quickly.
 
-####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
-
-My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ?
-* test set accuracy of ?
+### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
@@ -227,7 +221,6 @@ If a well known architecture was chosen:
 
 At first, I started with the LeNet-5 architecture from the lesson. It is known to be one of the very first Convolutionnal Neural Network to lower the error rate significantly for the MNIST dataset. I thought it would be a good model to try.
 
-I was pretty happy with my early results using the LeNet-5 network architecture so I haven't jumped to another one but rather focus on fine tuning the parameters on this model.
 
 Here is where I kept my observations from the early tests. I use the acronym VA for Validation Accuracy, LR for Learning Rate, BS for Batch Size, DO for Dropout.
 With the LeNet-5 NN from the lecture, the validation accuracy barely reached over 85%. One of the first improvement I've made was to add a dropout unit to prevent from overfitting.
@@ -258,6 +251,8 @@ Then I augmented the images by cropping them to only keep the region of interest
 
 I concluded that I should only keep the dropout cells after the activation of the fully connected layers. Furthermore, cropping the image is impacting the result of the neural network by a lot.
 
+I was pretty happy with my early results using the LeNet-5 network architecture so I haven't jumped to another one but rather focus on fine tuning the parameters on this model.
+
 I wanted to tune the dropout parameter. Here are 2 graphs displaying the evolution of the loss and accuracy for both the training set and the validation set at each epoch during training.
 
 For the same hyperparameters and the dropout set to **0.7**:
@@ -270,51 +265,75 @@ Then I changed it to be **0.5**:
 
 Then, I started to include my rotating augmenting function. Therefore, I increased the size of the training set.
 With now 39239 training images, BS = 128, LR = 0.0005, Epochs = 50, DO = 0.7, I obtained a validation accuracy of 99.9% and a training accuracy of 96.6%.
+Unfortunately, I believe I overfitted the model because the test accuracy was only 65%.
 
-The best test accuracy I could come up with is 70%.
+In the end, after tweaking the parameters I finally ended up with this solution:
+Number of epochs : 20
+Batch size : 128
+Learning rate : 0.0005
+Dropout : 0.5
+Training Accuracy = 99.023%
+Validation Accuracy = 95.170%
+Test accuracy = 69.4%.
 
-###Test of my model on New Images
+### Test of my model on New Images
 
-####1. Presentation of the images
+#### 1. Presentation of the images
 
 Here are 16 images from the Belgium traffic sign dataset:
 
 ![alt text][testimg1]
 ![alt text][testimg2]
+![alt text][testimg3]
+![alt text][testimg4]
+![alt text][testimg5]
+![alt text][testimg6]
+![alt text][testimg7]
+![alt text][testimg8]
+![alt text][testimg9]
+![alt text][testimg10]
+![alt text][testimg11]
+![alt text][testimg12]
+![alt text][testimg13]
+![alt text][testimg14]
+![alt text][testimg15]
 
-![alt text][image5] ![alt text][image6]
-![alt text][image7] ![alt text][image8]
 
-The first image might be difficult to classify because ...
+Some of theses images have the same meaning that the ones of the German dataset but might have some small differences like of example the presence of `km/h` on the 50 km/h speed limit sign or the width of some arrows. Other that that, these images do not present major problems of visibility that might trick the model but in order to perform well on these images, it comes down to how good were the images of the training data. I want to highlight here that I believe that these images were not very clear. I had a hard time determining the class of many of the images in the dataset.
 
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+
+#### 2. Predictions labels of these images and their top 5 softmax probabilities
 
 Here are the results of the prediction:
 
-| Image			        |     Prediction	        					|
-|:---------------------:|:---------------------------------------------:|
-| Stop Sign      		| Stop sign   									|
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+![alt text][imgpred0]
+![alt text][imgpred1]
+![alt text][imgpred2]
+![alt text][imgpred3]
+![alt text][imgpred4]
+![alt text][imgpred5]
+![alt text][imgpred6]
+![alt text][imgpred7]
+![alt text][imgpred8]
+![alt text][imgpred9]
+![alt text][imgpred10]
+![alt text][imgpred11]
+![alt text][imgpred12]
+![alt text][imgpred13]
+![alt text][imgpred14]
+![alt text][imgpred15]
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 8 of the 15 traffic signs, which gives an accuracy of 53%. This compares unfavorably to the accuracy on the test set of 70%.
 
-####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+We can interpret some of the results and make some assumptions.
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+1. Roundabout mandatory: The circular gap between the 3 arrows and the border of the sign could have been interpreted as the yellow border of the Priority Road sign and therefore misclassified.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+2. The dangerous curve to the left is somehow resemblant to the Slippery Slope Road sign.
 
-| Probability         	|     Prediction	        					|
-|:---------------------:|:---------------------------------------------:|
-| .60         			| Stop sign   									|
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+3. The General Caution sign exhibits a very similar vertical pattern to the one present on the Traffic Signals sign.
 
+4. The `5` in the 50 km/h sign is very similar to the `6` in the 60 km/h sign and must have caused the misclassification.
 
-For the second image ...
+5. The Yield sign's output neuron has probably learned to fire a high output when a significant area in the middle of the image is white (or of uniform color/intensity) rather than focusing on the shape of the sign. The might by why the No Vehicle sign was classified as being a Yield sign.
