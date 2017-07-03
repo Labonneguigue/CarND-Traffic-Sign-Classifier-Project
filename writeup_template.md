@@ -57,7 +57,6 @@ The goals / steps of this project are the following:
 [imgpred12]: ./saved_figures/test_image_pred_12.png
 [imgpred13]: ./saved_figures/test_image_pred_13.png
 [imgpred14]: ./saved_figures/test_image_pred_14.png
-[imgpred15]: ./saved_figures/test_image_pred_15.png
 
 [test2]: ./new_images/example_00002.png
 [test3]: ./new_images/example_00003.png
@@ -225,8 +224,8 @@ At first, I started with the LeNet-5 architecture from the lesson. It is known t
 Here is where I kept my observations from the early tests. I use the acronym VA for Validation Accuracy, LR for Learning Rate, BS for Batch Size, DO for Dropout.
 With the LeNet-5 NN from the lecture, the validation accuracy barely reached over 85%. One of the first improvement I've made was to add a dropout unit to prevent from overfitting.
 
-    I reached 86.3% with 1 dropout unit and a dropout input argument of 0.7.
-    I reached 87.9% with 2 dropout unit and a dropout input argument of 0.7.
+I reached 86.3% with 1 dropout unit and a dropout input argument of 0.7.
+I reached 87.9% with 2 dropout unit and a dropout input argument of 0.7.
 
 The idea I had was to reduce the learning rate a little bit and increase the number of epochs.
 
@@ -299,7 +298,7 @@ Here are 16 images from the Belgium traffic sign dataset:
 ![alt text][testimg15]
 
 
-Some of theses images have the same meaning that the ones of the German dataset but might have some small differences like of example the presence of `km/h` on the 50 km/h speed limit sign or the width of some arrows. Other that that, these images do not present major problems of visibility that might trick the model but in order to perform well on these images, it comes down to how good were the images of the training data. I want to highlight here that I believe that these images were not very clear. I had a hard time determining the class of many of the images in the dataset.
+Theses images have the same meaning that the ones of the German dataset but some might have some small differences like of example the presence of `km/h` on the 50 km/h speed limit sign or the width of some arrows. Other that that, these images do not present major problems of visibility that might trick the model but in order to perform well on these images, it comes down to how good were the images of the training data. I want to highlight here that I believe that these images were not very clear. I had a hard time determining the class of many of the images in the dataset myself.
 
 
 #### 2. Predictions labels of these images and their top 5 softmax probabilities
