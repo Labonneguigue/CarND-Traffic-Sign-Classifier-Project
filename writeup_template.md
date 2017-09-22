@@ -320,7 +320,6 @@ Here are the results of the prediction:
 ![alt text][imgpred12]
 ![alt text][imgpred13]
 ![alt text][imgpred14]
-![alt text][imgpred15]
 
 
 The model was able to correctly guess 8 of the 15 traffic signs, which gives an accuracy of 53%. This compares unfavorably to the accuracy on the test set of 70%.
@@ -335,4 +334,4 @@ We can interpret some of the results and make some assumptions.
 
 4. The `5` in the 50 km/h sign is very similar to the `6` in the 60 km/h sign and must have caused the misclassification.
 
-5. The Yield sign's output neuron has probably learned to fire a high output when a significant area in the middle of the image is white (or of uniform color/intensity) rather than focusing on the shape of the sign. The might by why the No Vehicle sign was classified as being a Yield sign.
+5. The Yield sign's output neuron has probably learned to fire a high output when a significant area in the middle of the image is white (or of uniform color/intensity) rather than focusing on the shape of the sign. The might by why the `No Vehicle` sign was classified as being a `Yield` sign.
